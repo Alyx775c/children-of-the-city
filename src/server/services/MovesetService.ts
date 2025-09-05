@@ -1,6 +1,7 @@
 import { Service, OnStart } from "@flamework/core";
 import { Players } from "@rbxts/services";
-import { FightingStyle, RatStyle } from "shared/styles/Default";
+import { FightingStyle } from "shared/styles";
+import PetePage from "shared/styles/pages/PetePage";
 
 @Service({})
 export class MovesetService implements OnStart {
@@ -8,7 +9,7 @@ export class MovesetService implements OnStart {
 
 	onStart() {
 		Players.PlayerAdded.Connect((plr: Player) => {
-			this.plrRegistry.set(plr, RatStyle);
+			this.plrRegistry.set(plr, PetePage);
 		});
 
 		Players.PlayerRemoving.Connect((plr: Player) => {
