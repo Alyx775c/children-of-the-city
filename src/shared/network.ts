@@ -1,6 +1,8 @@
 import { Networking } from "@flamework/networking";
 
-interface ClientToServerEvents {}
+interface ClientToServerEvents {
+	keypress(inputObject: InputObject): void;
+}
 
 interface ServerToClientEvents {}
 
