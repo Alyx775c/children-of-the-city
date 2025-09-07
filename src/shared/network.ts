@@ -1,7 +1,7 @@
 import { Networking } from "@flamework/networking";
 
 interface ClientToServerEvents {
-	keypress(inputObject: InputObject): void;
+	keypress(inputObject: InputObject, mousePress: Enum.UserInputType): void;
 }
 
 interface ServerToClientEvents {}

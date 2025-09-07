@@ -11,8 +11,14 @@ export class FightingStyle {
 }
 
 export type SkillData = {
-	animation: string | Animation;
-	hitbox: (playerPosition: CFrame) => CFrame;
+	animation?: string | Animation;
+	hitbox?: HitboxData;
+};
+
+export type HitboxData = {
+	cframe: (playerPosition: CFrame) => CFrame;
+	size: Vector3;
+	duration: number;
 };
 
 export class Skill {

@@ -1,7 +1,7 @@
 import { Service, OnStart } from "@flamework/core";
 import { Players } from "@rbxts/services";
 import { FightingStyle } from "shared/styles";
-import PetePage from "shared/styles/pages/PetePage";
+import PetePage from "shared/styles/pages/rats/PetePage";
 
 @Service({})
 export class MovesetService implements OnStart {

@@ -1,12 +1,13 @@
 import { Service, OnStart } from "@flamework/core";
 import { Events } from "server/network";
 import { MovesetService } from "./MovesetService";
-import { FightingStyle, Skill } from "shared/styles";
+import { FightingStyle, Skill, SkillData } from "shared/styles";
 import { RunService } from "@rbxts/services";
+import { HitboxService } from "./HitboxService";
 
 @Service({})
 export class AttackService implements OnStart {
-	constructor(private movesetService: MovesetService) {}
+	constructor(private movesetService: MovesetService, private hitboxService: HitboxService) {}
 
 	onStart() {
 		Events.keypress.connect((plr: Player, inp: InputObject) => {
@@ -15,13 +16,13 @@ export class AttackService implements OnStart {
 
 			for (const [skill, keycode] of pairs(moveset.skills)) {
 				if (inp.KeyCode === keycode) {
-					this.runSkill(skill);
+					this.runSkill(plr, skill);
 				}
 			}
 		});
 	}
 
-	private async runSkill(skill: Skill) {
+	private runSkill(player: Player, skill: Skill) {
 		let time = 0;
 		const times: Array<number> = [];
 
@@ -30,16 +31,23 @@ export class AttackService implements OnStart {
 			times.push(time);
 		}
 
+		let nextIndex = 0;
+
 		task.spawn(() => {
-			RunService.Heartbeat.Connect((dt: number) => {
+			const conn = RunService.Heartbeat.Connect((dt: number) => {
 				time += dt;
-				times.forEach((e) => {
-					if (time >= e) {
-						// this is why you can't have two on the same timing, or in the incorrect order
-						// i could manually sort the map but like that adds more time to a function that runs every tick
-						times.shift();
-					}
-				});
+				while (nextIndex < times.size() && time >= times[nextIndex]) {
+					const dat = skill.timeline[times[nextIndex]];
+					// we can safely assume that player.character is loaded
+					// because they pressed a fuckin button ( this is a complete lie btw )
+					if (dat.hitbox) this.hitboxService.MakeHitbox(player.Character as Model, dat.hitbox);
+					else if (dat.animation !== "" && dat.animation) print("");
+
+					nextIndex++;
+				}
+				if (nextIndex >= times.size()) {
+					conn.Disconnect();
+				}
 			});
 		});
 	}

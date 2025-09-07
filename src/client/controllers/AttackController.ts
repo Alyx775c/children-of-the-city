@@ -5,6 +5,6 @@ import { OnInputBegan } from "shared/lifetime";
 @Controller({})
 export class AttackController implements OnInputBegan {
 	inputBegan(input: InputObject): void {
-		Events.keypress(input);
+		Events.keypress(input, input.UserInputType);
 	}
 }

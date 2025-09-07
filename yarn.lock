@@ -131,6 +131,18 @@
   resolved "https://registry.npmjs.org/@rbxts/object-utils/-/object-utils-1.0.4.tgz"
   integrity sha512-dLLhf022ipV+9i910sOE7kl9losKHoon0WgeerHqVMQA5EYsLUsVT2AxhJuhk8MiDn5oJ2GiFofE/LadY9TpJQ==
 
+"@rbxts/react-vendor@17.2.3":
+  version "17.2.3"
+  resolved "https://registry.yarnpkg.com/@rbxts/react-vendor/-/react-vendor-17.2.3.tgz#709436d311ca0f32311b8d9be7c3542380219b69"
+  integrity sha512-dWCiVelvTK6h920geaFH/OQ5zoWHyhyqyfH51hKx2/iVZ6OiiyNVJ5UqEIkJMG4HsJ8JnkTORizV3+MtQ41BtA==
+
+"@rbxts/react@^17.2.3":
+  version "17.2.3"
+  resolved "https://registry.yarnpkg.com/@rbxts/react/-/react-17.2.3.tgz#8434c29e900ebb82341c40f52a3fcb3ec781dfc8"
+  integrity sha512-IoOB8e2W8MxT0MKWFf0Ls0vT61ImYL6ctHQgz5+oazma6z8bqFtJjgPxOuy6jmMSuyfBe7rYp/muou0kIjZT+Q==
+  dependencies:
+    "@rbxts/react-vendor" "17.2.3"
+
 "@rbxts/services@^1.1.4", "@rbxts/services@^1.1.5":
   version "1.1.5"
   resolved "https://registry.npmjs.org/@rbxts/services/-/services-1.1.5.tgz"
@@ -165,6 +177,11 @@
   version "1.0.880"
   resolved "https://registry.npmjs.org/@rbxts/types/-/types-1.0.880.tgz"
   integrity sha512-gC0aCsLXy72039mKy1syxBt3CdJT0GAYIf2/Bje7ypfWcgwLDPKxOyC51MWmmHmnwgYdIpPCgXIQx3p8ECSN5A==
+
+"@rbxts/ui-labs@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@rbxts/ui-labs/-/ui-labs-2.4.1.tgz#df9a457cd9ab285a617e0686f4f09ef795d68d4d"
+  integrity sha512-CoXsH3WVZij1Uiq0SlIrqFZ8UDW0fDSSUJu1bOSBPOiBDORON3V6qYWLjjSsFrX5q+WHkVOTcKCPb6AhV/Q0/A==
 
 "@roblox-ts/luau-ast@=2.0.0":
   version "2.0.0"
