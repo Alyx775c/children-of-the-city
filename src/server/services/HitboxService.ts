@@ -9,5 +9,7 @@ export class HitboxService {
 		hb.CanQuery = true;
 		hb.Size = data.size;
 		hb.CFrame = data.cframe(character.PrimaryPart?.CFrame as CFrame);
+
+		hb.Touched.Connect((part: BasePart) => {});
 	}
 }

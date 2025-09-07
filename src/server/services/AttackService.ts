@@ -4,15 +4,25 @@ import { MovesetService } from "./MovesetService";
 import { FightingStyle, Skill, SkillData } from "shared/styles";
 import { RunService } from "@rbxts/services";
 import { HitboxService } from "./HitboxService";
+import { Components } from "@flamework/components";
+import { PlayerState, PlayerStateComponent } from "shared/components/PlayerStateComponent";
 
 @Service({})
 export class AttackService implements OnStart {
-	constructor(private movesetService: MovesetService, private hitboxService: HitboxService) {}
+	constructor(
+		private movesetService: MovesetService,
+		private hitboxService: HitboxService,
+		private components: Components,
+	) {}
 
 	onStart() {
 		Events.keypress.connect((plr: Player, inp: InputObject) => {
 			const moveset = this.movesetService.getMoveset(plr) as FightingStyle;
 			if (moveset === undefined) return;
+
+			// this way we save precious time
+			const stateComponent = this.components.getComponent<PlayerStateComponent>(plr);
+			if (stateComponent?.getState() === PlayerState.Stunned) return;
 
 			for (const [skill, keycode] of pairs(moveset.skills)) {
 				if (inp.KeyCode === keycode) {
@@ -38,10 +48,23 @@ export class AttackService implements OnStart {
 				time += dt;
 				while (nextIndex < times.size() && time >= times[nextIndex]) {
 					const dat = skill.timeline[times[nextIndex]];
-					// we can safely assume that player.character is loaded
-					// because they pressed a fuckin button ( this is a complete lie btw )
-					if (dat.hitbox) this.hitboxService.MakeHitbox(player.Character as Model, dat.hitbox);
-					else if (dat.animation !== "" && dat.animation) print("");
+					const chr = player.Character as Character;
+
+					if (chr) {
+						if (dat.hitbox) this.hitboxService.MakeHitbox(chr, dat.hitbox);
+						else if (dat.animation) {
+							// technically these types aren't nullable but it's better to check
+							// for their existence than deal with shitty errors down the line
+							const humanoid = chr.Humanoid;
+							if (!humanoid) return;
+
+							const animator = humanoid.Animator;
+							if (!animator) return;
+
+							const track = animator.LoadAnimation(dat.animation);
+							track.Play();
+						}
+					}
 
 					nextIndex++;
 				}
@@ -50,5 +73,9 @@ export class AttackService implements OnStart {
 				}
 			});
 		});
+	}
+
+	applyStun(plr: Player, duration: number) {
+		plr;
 	}
 }

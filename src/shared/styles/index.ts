@@ -2,23 +2,29 @@ export class FightingStyle {
 	name: string;
 	skills: Map<Skill, Enum.KeyCode>;
 
-	constructor(name: string, skills: Map<Skill, Enum.KeyCode>) {
+	constructor(name: string, skills: Map<Skill, Enum.KeyCode>, passives: Array<Passive>) {
 		this.name = name;
 		this.skills = skills;
-
-		script.Parent?.WaitForChild("attacks");
 	}
 }
 
+export interface Passive {}
+
 export type SkillData = {
-	animation?: string | Animation;
+	animation?: Animation;
 	hitbox?: HitboxData;
+	stunTime?: number;
 };
 
 export type HitboxData = {
 	cframe: (playerPosition: CFrame) => CFrame;
 	size: Vector3;
 	duration: number;
+	hitData: OnHitData;
+};
+
+export type OnHitData = {
+	stunDuration?: number;
 };
 
 export class Skill {

@@ -2,7 +2,12 @@ import { Skill } from "shared/styles";
 
 export = new Skill({
 	0.0: {
-		animation: "",
+		animation: (() => {
+			const anim = new Instance("Animation");
+			anim.AnimationId = "";
+
+			return anim;
+		})(),
 		hitbox: {
 			cframe: (playerPosition: CFrame) => {
 				const dat = new CFrame();
@@ -12,6 +17,7 @@ export = new Skill({
 			},
 			size: new Vector3(5, 5, 5),
 			duration: 0.5,
+			hitData: {},
 		},
 	},
 });
