@@ -2,6 +2,7 @@ import { Networking } from "@flamework/networking";
 
 interface ClientToServerEvents {
 	keypress(inputObject: InputObject, mousePress: Enum.UserInputType): void;
+	tryChangeStyle(targetStyleID: string): void;
 }
 
 interface ServerToClientEvents {}

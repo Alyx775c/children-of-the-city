@@ -5,7 +5,7 @@ import { FightingStyle, Skill, SkillData } from "shared/styles";
 import { RunService } from "@rbxts/services";
 import { HitboxService } from "./HitboxService";
 import { Components } from "@flamework/components";
-import { PlayerState, PlayerStateComponent } from "shared/components/PlayerStateComponent";
+import { PlayerState, PlayerStateComponent } from "server/components/PlayerStateComponent";
 
 @Service({})
 export class AttackService implements OnStart {
@@ -22,17 +22,18 @@ export class AttackService implements OnStart {
 
 			// this way we save precious time
 			const stateComponent = this.components.getComponent<PlayerStateComponent>(plr);
+			if (!stateComponent) return;
 			if (stateComponent?.getState() === PlayerState.Stunned) return;
 
 			for (const [skill, keycode] of pairs(moveset.skills)) {
 				if (inp.KeyCode === keycode) {
-					this.runSkill(plr, skill);
+					this.runSkill(plr, skill, stateComponent);
 				}
 			}
 		});
 	}
 
-	private runSkill(player: Player, skill: Skill) {
+	private runSkill(player: Player, skill: Skill, state: PlayerStateComponent) {
 		let time = 0;
 		const times: Array<number> = [];
 
@@ -51,8 +52,11 @@ export class AttackService implements OnStart {
 					const chr = player.Character as Character;
 
 					if (chr) {
-						if (dat.hitbox) this.hitboxService.MakeHitbox(chr, dat.hitbox);
-						else if (dat.animation) {
+						if (dat.hitbox) {
+							this.hitboxService.MakeHitbox(chr, dat.hitbox);
+							if (dat.hitbox.hitData.stunDuration !== undefined)
+								state.setStun(dat.hitbox.hitData.stunDuration);
+						} else if (dat.animation) {
 							// technically these types aren't nullable but it's better to check
 							// for their existence than deal with shitty errors down the line
 							const humanoid = chr.Humanoid;

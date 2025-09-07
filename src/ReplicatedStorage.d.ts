@@ -94,13 +94,13 @@ interface ReplicatedStorage extends Instance {
 							DatatypeControls: ModuleScript;
 							AdvancedControls: ModuleScript;
 						};
-						Utils: ModuleScript;
-						Typing: Folder;
+						Libraries: Folder;
+						StoryCreators: ModuleScript;
 						ControlTypings: Folder;
 						Version: ModuleScript;
 						Environment: ModuleScript;
-						Libraries: Folder;
-						StoryCreators: ModuleScript;
+						Typing: Folder;
+						Utils: ModuleScript;
 						Types: ModuleScript;
 					};
 				};
@@ -110,8 +110,8 @@ interface ReplicatedStorage extends Instance {
 						ts: ModuleScript;
 					};
 				};
-				maid: Folder & {
-					Maid: ModuleScript;
+				["compiler-types"]: Folder & {
+					types: Folder;
 				};
 				["object-utils"]: ModuleScript;
 				ReactLua: Folder & {
@@ -129,207 +129,6 @@ interface ReplicatedStorage extends Instance {
 									MIN_SAFE_INTEGER: ModuleScript;
 								};
 							};
-							console: Folder & {
-								["package"]: ModuleScript;
-								src: ModuleScript & {
-									makeConsoleImpl: ModuleScript;
-								};
-							};
-							["react-roblox"]: ModuleScript & {
-								client: Folder & {
-									roblox: Folder & {
-										RobloxComponentProps: ModuleScript;
-										SingleEventManager: ModuleScript;
-										getDefaultInstanceProperty: ModuleScript;
-									};
-									ReactRobloxHostConfig: ModuleScript;
-									ReactRobloxRoot: ModuleScript;
-									ReactRoblox: ModuleScript;
-									ReactRobloxComponentTree: ModuleScript;
-									["ReactRobloxHostTypes.roblox"]: ModuleScript;
-									ReactRobloxComponent: ModuleScript;
-								};
-								["ReactReconciler.roblox"]: ModuleScript;
-							};
-							["react-devtools-shared"]: ModuleScript & {
-								["jest.config"]: ModuleScript;
-								hook: ModuleScript;
-								bridge: ModuleScript;
-								constants: ModuleScript;
-								utils: ModuleScript;
-								devtools: ModuleScript & {
-									views: Folder & {
-										Components: Folder & {
-											types: ModuleScript;
-										};
-										Profiler: Folder & {
-											InteractionsChartBuilder: ModuleScript;
-											utils: ModuleScript;
-											CommitTreeBuilder: ModuleScript;
-											RankedChartBuilder: ModuleScript;
-											FlamegraphChartBuilder: ModuleScript;
-											types: ModuleScript;
-										};
-									};
-									utils: ModuleScript;
-									cache: ModuleScript;
-									types: ModuleScript;
-									ProfilingCache: ModuleScript;
-									store: ModuleScript;
-									ProfilerStore: ModuleScript;
-								};
-								events: ModuleScript;
-								hydration: ModuleScript;
-								["clipboardjs.mock"]: ModuleScript;
-								storage: ModuleScript;
-								backend: ModuleScript & {
-									console: ModuleScript;
-									utils: ModuleScript;
-									ReactSymbols: ModuleScript;
-									renderer: ModuleScript;
-									agent: ModuleScript;
-									NativeStyleEditor: Folder & {
-										types: ModuleScript;
-									};
-									types: ModuleScript;
-								};
-								types: ModuleScript;
-							};
-							["instance-of"]: Folder & {
-								["package"]: ModuleScript;
-								src: ModuleScript & {
-									["instanceof"]: ModuleScript;
-								};
-							};
-							["react-cache"]: ModuleScript & {
-								ReactCacheOld: ModuleScript;
-								LRU: ModuleScript;
-							};
-							["luau-polyfill"]: Folder & {
-								["package"]: ModuleScript;
-								src: ModuleScript & {
-									Promise: ModuleScript;
-									["extends"]: ModuleScript;
-									AssertionError: ModuleScript & {
-										["AssertionError.global"]: ModuleScript;
-									};
-									Error: ModuleScript & {
-										["Error.global"]: ModuleScript;
-									};
-									encodeURIComponent: ModuleScript;
-								};
-							};
-							math: Folder & {
-								["package"]: ModuleScript;
-								src: ModuleScript & {
-									clz32: ModuleScript;
-								};
-							};
-							timers: Folder & {
-								["package"]: ModuleScript;
-								src: ModuleScript & {
-									makeIntervalImpl: ModuleScript;
-									makeTimerImpl: ModuleScript;
-								};
-							};
-							["react-test-renderer"]: ModuleScript & {
-								ReactTestRenderer: ModuleScript;
-								roblox: Folder & {
-									RobloxComponentProps: ModuleScript;
-								};
-								ReactTestHostConfig: ModuleScript;
-							};
-							promise: Folder & {
-								lib: ModuleScript;
-								["package"]: ModuleScript;
-							};
-							string: Folder & {
-								["package"]: ModuleScript;
-								src: ModuleScript & {
-									endsWith: ModuleScript;
-									indexOf: ModuleScript;
-									lastIndexOf: ModuleScript;
-									trimStart: ModuleScript;
-									trim: ModuleScript;
-									findOr: ModuleScript;
-									substr: ModuleScript;
-									slice: ModuleScript;
-									startsWith: ModuleScript;
-									charCodeAt: ModuleScript;
-									trimEnd: ModuleScript;
-									includes: ModuleScript;
-									split: ModuleScript;
-								};
-							};
-							shared: ModuleScript & {
-								["UninitializedState.roblox"]: ModuleScript;
-								console: ModuleScript;
-								ReactComponentStackFrame: ModuleScript;
-								invariant: ModuleScript;
-								ReactTypes: ModuleScript;
-								objectIs: ModuleScript;
-								ReactInstanceMap: ModuleScript;
-								["Type.roblox"]: ModuleScript;
-								["ConsolePatchingDev.roblox"]: ModuleScript;
-								["ErrorHandling.roblox"]: ModuleScript;
-								shallowEqual: ModuleScript;
-								ReactElementType: ModuleScript;
-								isValidElementType: ModuleScript;
-								invokeGuardedCallbackImpl: ModuleScript;
-								getComponentName: ModuleScript;
-								formatProdErrorMessage: ModuleScript;
-								ReactFeatureFlags: ModuleScript;
-								PropMarkers: Folder & {
-									Change: ModuleScript;
-									Event: ModuleScript;
-									Tag: ModuleScript;
-								};
-								consoleWithStackDev: ModuleScript;
-								ReactErrorUtils: ModuleScript;
-								["enqueueTask.roblox"]: ModuleScript;
-								checkPropTypes: ModuleScript;
-								ReactSharedInternals: ModuleScript & {
-									ReactDebugCurrentFrame: ModuleScript;
-									ReactCurrentOwner: ModuleScript;
-									ReactCurrentDispatcher: ModuleScript;
-									IsSomeRendererActing: ModuleScript;
-									ReactCurrentBatchConfig: ModuleScript;
-								};
-								ReactVersion: ModuleScript;
-								ReactSymbols: ModuleScript;
-								["flowtypes.roblox"]: ModuleScript;
-								["Symbol.roblox"]: ModuleScript;
-								ExecutionEnvironment: ModuleScript;
-								ReactFiberHostConfig: ModuleScript & {
-									WithNoTestSelectors: ModuleScript;
-									WithNoHydration: ModuleScript;
-									WithNoPersistence: ModuleScript;
-								};
-							};
-							scheduler: ModuleScript & {
-								SchedulerPriorities: ModuleScript;
-								TracingSubscriptions: ModuleScript;
-								SchedulerMinHeap: ModuleScript;
-								Scheduler: ModuleScript;
-								Tracing: ModuleScript;
-								forks: Folder & {
-									["SchedulerHostConfig.mock"]: ModuleScript;
-									["SchedulerHostConfig.default"]: ModuleScript;
-								};
-								unstable_mock: ModuleScript;
-								SchedulerProfiling: ModuleScript;
-								SchedulerHostConfig: ModuleScript;
-								SchedulerFeatureFlags: ModuleScript;
-							};
-							["roact-compat"]: ModuleScript & {
-								warnOnce: ModuleScript;
-								Portal: ModuleScript;
-								setGlobalConfig: ModuleScript;
-								oneChild: ModuleScript;
-								createFragment: ModuleScript;
-								RoactTree: ModuleScript;
-							};
-							["react-shallow-renderer"]: ModuleScript;
 							collections: Folder & {
 								["package"]: ModuleScript;
 								src: ModuleScript & {
@@ -384,8 +183,31 @@ interface ReplicatedStorage extends Instance {
 									WeakMap: ModuleScript;
 								};
 							};
-							["react-devtools-extensions"]: ModuleScript & {
-								backend: ModuleScript;
+							["react-roblox"]: ModuleScript & {
+								client: Folder & {
+									roblox: Folder & {
+										RobloxComponentProps: ModuleScript;
+										SingleEventManager: ModuleScript;
+										getDefaultInstanceProperty: ModuleScript;
+									};
+									ReactRobloxHostConfig: ModuleScript;
+									ReactRobloxRoot: ModuleScript;
+									ReactRoblox: ModuleScript;
+									ReactRobloxComponentTree: ModuleScript;
+									["ReactRobloxHostTypes.roblox"]: ModuleScript;
+									ReactRobloxComponent: ModuleScript;
+								};
+								["ReactReconciler.roblox"]: ModuleScript;
+							};
+							["react-is"]: ModuleScript;
+							["react-shallow-renderer"]: ModuleScript;
+							["roact-compat"]: ModuleScript & {
+								warnOnce: ModuleScript;
+								Portal: ModuleScript;
+								setGlobalConfig: ModuleScript;
+								oneChild: ModuleScript;
+								createFragment: ModuleScript;
+								RoactTree: ModuleScript;
 							};
 							["react-reconciler"]: ModuleScript & {
 								ReactRootTags: ModuleScript;
@@ -444,7 +266,185 @@ interface ReplicatedStorage extends Instance {
 								["ReactFiberRoot.new"]: ModuleScript;
 								["ReactFiberThrow.new"]: ModuleScript;
 							};
-							["react-is"]: ModuleScript;
+							math: Folder & {
+								["package"]: ModuleScript;
+								src: ModuleScript & {
+									clz32: ModuleScript;
+								};
+							};
+							timers: Folder & {
+								["package"]: ModuleScript;
+								src: ModuleScript & {
+									makeIntervalImpl: ModuleScript;
+									makeTimerImpl: ModuleScript;
+								};
+							};
+							["react-test-renderer"]: ModuleScript & {
+								ReactTestRenderer: ModuleScript;
+								roblox: Folder & {
+									RobloxComponentProps: ModuleScript;
+								};
+								ReactTestHostConfig: ModuleScript;
+							};
+							shared: ModuleScript & {
+								["UninitializedState.roblox"]: ModuleScript;
+								console: ModuleScript;
+								ReactComponentStackFrame: ModuleScript;
+								invariant: ModuleScript;
+								ReactTypes: ModuleScript;
+								objectIs: ModuleScript;
+								ReactInstanceMap: ModuleScript;
+								["Type.roblox"]: ModuleScript;
+								["ConsolePatchingDev.roblox"]: ModuleScript;
+								["ErrorHandling.roblox"]: ModuleScript;
+								ReactFeatureFlags: ModuleScript;
+								ReactElementType: ModuleScript;
+								shallowEqual: ModuleScript;
+								isValidElementType: ModuleScript;
+								invokeGuardedCallbackImpl: ModuleScript;
+								getComponentName: ModuleScript;
+								formatProdErrorMessage: ModuleScript;
+								PropMarkers: Folder & {
+									Change: ModuleScript;
+									Event: ModuleScript;
+									Tag: ModuleScript;
+								};
+								consoleWithStackDev: ModuleScript;
+								ReactErrorUtils: ModuleScript;
+								["enqueueTask.roblox"]: ModuleScript;
+								checkPropTypes: ModuleScript;
+								ReactSharedInternals: ModuleScript & {
+									ReactDebugCurrentFrame: ModuleScript;
+									ReactCurrentOwner: ModuleScript;
+									ReactCurrentDispatcher: ModuleScript;
+									IsSomeRendererActing: ModuleScript;
+									ReactCurrentBatchConfig: ModuleScript;
+								};
+								ReactVersion: ModuleScript;
+								ReactSymbols: ModuleScript;
+								["flowtypes.roblox"]: ModuleScript;
+								["Symbol.roblox"]: ModuleScript;
+								ExecutionEnvironment: ModuleScript;
+								ReactFiberHostConfig: ModuleScript & {
+									WithNoTestSelectors: ModuleScript;
+									WithNoHydration: ModuleScript;
+									WithNoPersistence: ModuleScript;
+								};
+							};
+							string: Folder & {
+								["package"]: ModuleScript;
+								src: ModuleScript & {
+									endsWith: ModuleScript;
+									indexOf: ModuleScript;
+									lastIndexOf: ModuleScript;
+									trimStart: ModuleScript;
+									trim: ModuleScript;
+									findOr: ModuleScript;
+									substr: ModuleScript;
+									slice: ModuleScript;
+									startsWith: ModuleScript;
+									charCodeAt: ModuleScript;
+									trimEnd: ModuleScript;
+									includes: ModuleScript;
+									split: ModuleScript;
+								};
+							};
+							promise: Folder & {
+								lib: ModuleScript;
+								["package"]: ModuleScript;
+							};
+							["luau-polyfill"]: Folder & {
+								["package"]: ModuleScript;
+								src: ModuleScript & {
+									Promise: ModuleScript;
+									["extends"]: ModuleScript;
+									AssertionError: ModuleScript & {
+										["AssertionError.global"]: ModuleScript;
+									};
+									Error: ModuleScript & {
+										["Error.global"]: ModuleScript;
+									};
+									encodeURIComponent: ModuleScript;
+								};
+							};
+							["instance-of"]: Folder & {
+								["package"]: ModuleScript;
+								src: ModuleScript & {
+									["instanceof"]: ModuleScript;
+								};
+							};
+							["es7-types"]: Folder & {
+								["package"]: ModuleScript;
+								src: ModuleScript;
+							};
+							console: Folder & {
+								["package"]: ModuleScript;
+								src: ModuleScript & {
+									makeConsoleImpl: ModuleScript;
+								};
+							};
+							["react-devtools-extensions"]: ModuleScript & {
+								backend: ModuleScript;
+							};
+							["react-devtools-shared"]: ModuleScript & {
+								["jest.config"]: ModuleScript;
+								hook: ModuleScript;
+								bridge: ModuleScript;
+								constants: ModuleScript;
+								utils: ModuleScript;
+								devtools: ModuleScript & {
+									views: Folder & {
+										Components: Folder & {
+											types: ModuleScript;
+										};
+										Profiler: Folder & {
+											InteractionsChartBuilder: ModuleScript;
+											utils: ModuleScript;
+											CommitTreeBuilder: ModuleScript;
+											RankedChartBuilder: ModuleScript;
+											FlamegraphChartBuilder: ModuleScript;
+											types: ModuleScript;
+										};
+									};
+									utils: ModuleScript;
+									cache: ModuleScript;
+									types: ModuleScript;
+									ProfilingCache: ModuleScript;
+									store: ModuleScript;
+									ProfilerStore: ModuleScript;
+								};
+								events: ModuleScript;
+								hydration: ModuleScript;
+								["clipboardjs.mock"]: ModuleScript;
+								storage: ModuleScript;
+								backend: ModuleScript & {
+									console: ModuleScript;
+									NativeStyleEditor: Folder & {
+										types: ModuleScript;
+									};
+									ReactSymbols: ModuleScript;
+									renderer: ModuleScript;
+									agent: ModuleScript;
+									utils: ModuleScript;
+									types: ModuleScript;
+								};
+								types: ModuleScript;
+							};
+							scheduler: ModuleScript & {
+								SchedulerPriorities: ModuleScript;
+								TracingSubscriptions: ModuleScript;
+								SchedulerMinHeap: ModuleScript;
+								forks: Folder & {
+									["SchedulerHostConfig.mock"]: ModuleScript;
+									["SchedulerHostConfig.default"]: ModuleScript;
+								};
+								Tracing: ModuleScript;
+								Scheduler: ModuleScript;
+								unstable_mock: ModuleScript;
+								SchedulerProfiling: ModuleScript;
+								SchedulerHostConfig: ModuleScript;
+								SchedulerFeatureFlags: ModuleScript;
+							};
 							react: ModuleScript & {
 								["None.roblox"]: ModuleScript;
 								ReactLazy: ModuleScript;
@@ -463,9 +463,9 @@ interface ReplicatedStorage extends Instance {
 								ReactHooks: ModuleScript;
 								ReactChildren: ModuleScript;
 							};
-							["es7-types"]: Folder & {
-								["package"]: ModuleScript;
-								src: ModuleScript;
+							["react-cache"]: ModuleScript & {
+								ReactCacheOld: ModuleScript;
+								LRU: ModuleScript;
 							};
 							boolean: Folder & {
 								["package"]: ModuleScript;
@@ -479,12 +479,13 @@ interface ReplicatedStorage extends Instance {
 							};
 						};
 						commander: Folder & {
-							["package-support"]: ModuleScript;
 							["package"]: ModuleScript;
+							["package-support"]: ModuleScript;
 							lib: Folder;
 							typings: Folder;
 						};
 						[".luau-aliases"]: Folder & {
+							["symbol-luau"]: ModuleScript;
 							["@jsdotlua"]: Folder & {
 								number: ModuleScript;
 								console: ModuleScript;
@@ -511,7 +512,6 @@ interface ReplicatedStorage extends Instance {
 								boolean: ModuleScript;
 								["luau-polyfill"]: ModuleScript;
 							};
-							["symbol-luau"]: ModuleScript;
 						};
 						["symbol-luau"]: Folder & {
 							["package"]: ModuleScript;
@@ -572,13 +572,13 @@ interface ReplicatedStorage extends Instance {
 				react: ModuleScript & {
 					tags: ModuleScript;
 				};
-				["compiler-types"]: Folder & {
-					types: Folder;
-				};
 				types: Folder & {
 					include: Folder & {
 						generated: Folder;
 					};
+				};
+				maid: Folder & {
+					Maid: ModuleScript;
 				};
 				signal: ModuleScript;
 			};
@@ -589,9 +589,10 @@ interface ReplicatedStorage extends Instance {
 		styles: ModuleScript & {
 			attacks: Folder & {
 				rats: Folder & {
-					BiteOff: ModuleScript;
+					GuideToSurvival: ModuleScript;
 				};
 			};
+			passives: Folder;
 			pages: Folder & {
 				rats: Folder & {
 					PetePage: ModuleScript;
@@ -602,9 +603,11 @@ interface ReplicatedStorage extends Instance {
 		lifetime: ModuleScript;
 		ui: Folder & {
 			hud: Folder & {
-				["hud.story"]: ModuleScript;
+				["hud.storybook"]: ModuleScript;
 			};
 		};
-		components: Folder;
+		components: Folder & {
+			EffectComponent: ModuleScript;
+		};
 	};
 }

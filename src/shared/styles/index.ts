@@ -1,10 +1,22 @@
 export class FightingStyle {
 	name: string;
+	id: string;
 	skills: Map<Skill, Enum.KeyCode>;
+	passives: Array<Passive>;
+	moveSpeed: number;
 
-	constructor(name: string, skills: Map<Skill, Enum.KeyCode>, passives: Array<Passive>) {
-		this.name = name;
-		this.skills = skills;
+	constructor(data: {
+		name: string;
+		id: string;
+		skills: Map<Skill, Enum.KeyCode>;
+		passives: Array<Passive>;
+		defaultMoveSpeed: number;
+	}) {
+		this.name = data.name;
+		this.id = data.id;
+		this.skills = data.skills;
+		this.passives = data.passives;
+		this.moveSpeed = data.defaultMoveSpeed;
 	}
 }
 
@@ -25,6 +37,7 @@ export type HitboxData = {
 
 export type OnHitData = {
 	stunDuration?: number;
+	dmgMult: number;
 };
 
 export class Skill {
@@ -34,3 +47,18 @@ export class Skill {
 		this.timeline = timeline;
 	}
 }
+
+const styleList: FightingStyle[] = [];
+const pages = script.FindFirstChild("pages") as Instance | undefined;
+if (pages) {
+	for (const inst of pages.GetDescendants()) {
+		if (inst.IsA("ModuleScript")) styleList.push(require(inst) as FightingStyle);
+	}
+}
+
+const StyleLookup: Record<string, FightingStyle> = {};
+for (const style of styleList) {
+	StyleLookup[style.id] = style;
+}
+
+export { StyleLookup };

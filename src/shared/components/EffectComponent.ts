@@ -5,6 +5,8 @@ interface Attributes {}
 
 @Component({})
 export class EffectComponent extends BaseComponent<Attributes> {
+	expireNextTick: boolean = false;
+
 	/**
 	 * Effect tick, happens every 10 seconds
 	 */

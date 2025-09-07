@@ -17,7 +17,9 @@ export = new Skill({
 			},
 			size: new Vector3(5, 5, 5),
 			duration: 0.5,
-			hitData: {},
+			hitData: {
+				dmgMult: 1,
+			},
 		},
 	},
 });
