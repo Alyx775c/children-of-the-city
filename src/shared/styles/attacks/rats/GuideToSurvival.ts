@@ -1,24 +1,21 @@
-import { Skill } from "shared/styles";
+import { Skill } from "shared/styles/data";
 
 export = new Skill({
-	0.0: {
-		animation: (() => {
-			const anim = new Instance("Animation");
-			anim.AnimationId = "";
+	timeline: {
+		0.0: {
+			animation: "rbxassetid://100716342013127",
+			hitbox: {
+				cframe: (playerPosition: CFrame) => {
+					let dat = new CFrame();
+					dat = dat.mul(playerPosition);
 
-			return anim;
-		})(),
-		hitbox: {
-			cframe: (playerPosition: CFrame) => {
-				const dat = new CFrame();
-				dat.mul(playerPosition);
-
-				return dat;
-			},
-			size: new Vector3(5, 5, 5),
-			duration: 0.5,
-			hitData: {
-				dmgMult: 1,
+					return dat;
+				},
+				size: new Vector3(5, 5, 5),
+				duration: 0.5,
+				hitData: {
+					dmgMult: 1,
+				},
 			},
 		},
 	},

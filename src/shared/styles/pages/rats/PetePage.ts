@@ -1,4 +1,4 @@
-import { FightingStyle, Skill } from "../..";
+import { FightingStyle, Skill } from "../../data";
 import BiteOff from "../../attacks/rats/GuideToSurvival";
 
 export = new FightingStyle({

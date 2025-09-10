@@ -23,7 +23,7 @@ export class FightingStyle {
 export interface Passive {}
 
 export type SkillData = {
-	animation?: Animation;
+	animation?: string;
 	hitbox?: HitboxData;
 	stunTime?: number;
 };
@@ -37,15 +37,16 @@ export type HitboxData = {
 
 export type OnHitData = {
 	stunDuration?: number;
+	postureDamage?: number;
 	dmgMult: number;
 };
 
-export class Skill {
-	timeline: Record<number, SkillData>;
+export enum SkillTypes {
+	Timeline,
+}
 
-	constructor(timeline: Record<number, SkillData>) {
-		this.timeline = timeline;
-	}
+export class Skill {
+	constructor(public data: { timeline?: Record<number, SkillData> }) {}
 }
 
 const styleList: FightingStyle[] = [];

@@ -1,11 +1,12 @@
 import { Service, OnStart } from "@flamework/core";
 import { Events } from "server/network";
 import { MovesetService } from "./MovesetService";
-import { FightingStyle, Skill, SkillData } from "shared/styles";
+import { FightingStyle, Skill, SkillData } from "shared/styles/data";
 import { RunService } from "@rbxts/services";
 import { HitboxService } from "./HitboxService";
 import { Components } from "@flamework/components";
 import { PlayerState, PlayerStateComponent } from "server/components/PlayerStateComponent";
+import { IEffect } from "shared/components/EffectComponent";
 
 @Service({})
 export class AttackService implements OnStart {
@@ -16,7 +17,7 @@ export class AttackService implements OnStart {
 	) {}
 
 	onStart() {
-		Events.keypress.connect((plr: Player, inp: InputObject) => {
+		Events.keypress.connect((plr: Player, key: Enum.KeyCode, mouse: Enum.UserInputType) => {
 			const moveset = this.movesetService.getMoveset(plr) as FightingStyle;
 			if (moveset === undefined) return;
 
@@ -26,7 +27,8 @@ export class AttackService implements OnStart {
 			if (stateComponent?.getState() === PlayerState.Stunned) return;
 
 			for (const [skill, keycode] of pairs(moveset.skills)) {
-				if (inp.KeyCode === keycode) {
+				if (key === keycode) {
+					print("Found skill", skill);
 					this.runSkill(plr, skill, stateComponent);
 				}
 			}
@@ -37,49 +39,78 @@ export class AttackService implements OnStart {
 		let time = 0;
 		const times: Array<number> = [];
 
-		// eslint-disable-next-line roblox-ts/no-array-pairs
-		for (const [time, _] of pairs(skill.timeline)) {
-			times.push(time);
-		}
+		if (skill.data.timeline && skill.data.timeline[0]) {
+			const timeline = skill.data.timeline as Record<number, SkillData>
 
-		let nextIndex = 0;
+			// eslint-disable-next-line roblox-ts/no-array-pairs
+			for (const [time, _] of pairs(timeline)) {
+				times.push(time);
+			}
 
-		task.spawn(() => {
-			const conn = RunService.Heartbeat.Connect((dt: number) => {
-				time += dt;
-				while (nextIndex < times.size() && time >= times[nextIndex]) {
-					const dat = skill.timeline[times[nextIndex]];
-					const chr = player.Character as Character;
+			let nextIndex = 0;
 
-					if (chr) {
-						if (dat.hitbox) {
-							this.hitboxService.MakeHitbox(chr, dat.hitbox);
-							if (dat.hitbox.hitData.stunDuration !== undefined)
-								state.setStun(dat.hitbox.hitData.stunDuration);
-						} else if (dat.animation) {
+			task.spawn(() => {
+				const conn = RunService.Heartbeat.Connect((dt: number) => {
+					time += dt;
+					while (nextIndex < times.size() && time >= times[nextIndex]) {
+						const dat = timeline[times[nextIndex]];
+						const chr = player.Character as Character;
+
+						if (chr) {
+							if (dat.hitbox) {
+								print("Making hitbox");
+								this.hitboxService.MakeHitbox(chr, dat.hitbox);
+								if (dat.hitbox.hitData.stunDuration !== undefined)
+									state.setStun(dat.hitbox.hitData.stunDuration);
+							}
+
+							print("attempting to play animation");
+
 							// technically these types aren't nullable but it's better to check
 							// for their existence than deal with shitty errors down the line
 							const humanoid = chr.Humanoid;
-							if (!humanoid) return;
+							if (!humanoid) {
+								print("Humanoid is invalid");
+								return;
+							}
 
 							const animator = humanoid.Animator;
-							if (!animator) return;
+							if (!animator) {
+								print("Humanoid's Animator is invalid");
+								return;
+							}
 
-							const track = animator.LoadAnimation(dat.animation);
-							track.Play();
+							const anim = new Instance("Animation");
+							if (dat.animation !== undefined) {
+								anim.AnimationId = dat.animation;
+								print("Playing animation: ", dat.animation);
+								const track = animator.LoadAnimation(anim);
+								track.Play();
+							} else {
+								print("Animation ID is undefined, skipping animation.");
+							}
 						}
-					}
 
-					nextIndex++;
-				}
-				if (nextIndex >= times.size()) {
-					conn.Disconnect();
-				}
+						nextIndex++;
+					}
+					if (nextIndex >= times.size()) {
+						conn.Disconnect();
+					}
+				});
 			});
-		});
+		}
 	}
 
-	applyStun(plr: Player, duration: number) {
-		plr;
+	calculateDamage(plr: Player, baseDmg: number): number {
+		const stateComponent = this.components.getComponent<PlayerStateComponent>(plr);
+		if (!stateComponent) return 0;
+
+		let base = baseDmg;
+
+		stateComponent.getEffects().forEach((effect: IEffect, n: number) => {
+			base += effect.DamageModifier();
+		});
+
+		return base;
 	}
 }

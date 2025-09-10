@@ -1,10 +1,10 @@
 import { Dependency, OnStart, OnTick } from "@flamework/core";
 import { Component, BaseComponent, Components } from "@flamework/components";
 import { Players, RunService } from "@rbxts/services";
-import { EffectComponent } from "../../shared/components/EffectComponent";
-import { FightingStyle, StyleLookup } from "shared/styles";
+import { FightingStyle, StyleLookup } from "shared/styles/data";
 import PetePage from "shared/styles/pages/rats/PetePage";
 import { Events } from "server/network";
+import { IEffect } from "shared/components/EffectComponent";
 
 export enum PlayerState {
 	Idle,
@@ -15,7 +15,7 @@ export enum PlayerState {
 export class PlayerStateComponent extends BaseComponent<{}, Player> implements OnStart, OnTick {
 	private currentState: PlayerState = PlayerState.Idle;
 	private stunTime: number = 0;
-	private effects: Array<EffectComponent> = [];
+	private effects: Map<number, IEffect> = new Map();
 	private effectTimer: number = 0;
 	private playerStyle: FightingStyle = PetePage;
 
@@ -33,18 +33,18 @@ export class PlayerStateComponent extends BaseComponent<{}, Player> implements O
 		if (!chr) return;
 
 		if (this.effectTimer >= 10) {
-			for (const effect of this.effects) {
+			this.effects.forEach((effect: IEffect, n: number) => {
 				effect.OnEffectTick();
-				if (effect.expireNextTick) effect.destroy();
+				if (effect.ExpireNextTick) this.effects.delete(n);
+			});
+
+			chr.Humanoid.WalkSpeed = this.playerStyle.moveSpeed;
+
+			// this takes priority over every other state
+			if (this.stunTime > 0) {
+				if (this.instance.Character) chr.Humanoid.WalkSpeed = 0;
+				this.currentState = PlayerState.Stunned;
 			}
-		}
-
-		chr.Humanoid.WalkSpeed = this.playerStyle.moveSpeed;
-
-		// this takes priority over every other state
-		if (this.stunTime > 0) {
-			if (this.instance.Character) chr.Humanoid.WalkSpeed = 0;
-			this.currentState = PlayerState.Stunned;
 		}
 	}
 
@@ -57,6 +57,10 @@ export class PlayerStateComponent extends BaseComponent<{}, Player> implements O
 
 	getState() {
 		return this.currentState;
+	}
+
+	getEffects() {
+		return this.effects;
 	}
 }
 

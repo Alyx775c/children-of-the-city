@@ -1,6 +1,6 @@
 import { Service, OnStart } from "@flamework/core";
 import { Players } from "@rbxts/services";
-import { FightingStyle } from "shared/styles";
+import { FightingStyle } from "shared/styles/data";
 import PetePage from "shared/styles/pages/rats/PetePage";
 
 @Service({})
